@@ -1,0 +1,66 @@
+id: 'nf-core-sarek-summary'
+description: ' - this information is collected when the pipeline is started.'
+section_name: 'nf-core/sarek Workflow Summary'
+section_href: 'https://github.com/nf-core/sarek'
+plot_type: 'html'
+data: |
+    <p style="font-size:110%"><b>Input/output options</b></p>
+    <dl class="dl-horizontal">
+        <dt>input</dt><dd><samp>samplesheet.csv</samp></dd>
+        <dt>outdir</dt><dd><samp>./sarek_results</samp></dd>
+    </dl>
+    <p style="font-size:110%"><b>Main options</b></p>
+    <dl class="dl-horizontal">
+        <dt>intervals</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/intervals/wgs_calling_regions_noseconds.hg38.bed</samp></dd>
+    </dl>
+    <p style="font-size:110%"><b>Variant Calling</b></p>
+    <dl class="dl-horizontal">
+        <dt>cf_chrom_len</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/Length/Homo_sapiens_assembly38.len</samp></dd>
+        <dt>pon</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/1000g_pon.hg38.vcf.gz</samp></dd>
+        <dt>pon_tbi</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/1000g_pon.hg38.vcf.gz.tbi</samp></dd>
+    </dl>
+    <p style="font-size:110%"><b>Reference genome options</b></p>
+    <dl class="dl-horizontal">
+        <dt>ascat_alleles</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/ASCAT/G1000_alleles_hg38.zip</samp></dd>
+        <dt>ascat_genome</dt><dd><samp>hg38</samp></dd>
+        <dt>ascat_loci</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/ASCAT/G1000_loci_hg38.zip</samp></dd>
+        <dt>ascat_loci_gc</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/ASCAT/GC_G1000_hg38.zip</samp></dd>
+        <dt>ascat_loci_rt</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/ASCAT/RT_G1000_hg38.zip</samp></dd>
+        <dt>bwa</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/BWAIndex/</samp></dd>
+        <dt>bwamem2</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/BWAmem2Index/</samp></dd>
+        <dt>chr_dir</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/Chromosomes</samp></dd>
+        <dt>dbsnp</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/dbsnp_146.hg38.vcf.gz</samp></dd>
+        <dt>dbsnp_tbi</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/dbsnp_146.hg38.vcf.gz.tbi</samp></dd>
+        <dt>dbsnp_vqsr</dt><dd><samp>--resource:dbsnp,known=false,training=true,truth=false,prior=2.0 dbsnp_146.hg38.vcf.gz</samp></dd>
+        <dt>dict</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/WholeGenomeFasta/Homo_sapiens_assembly38.dict</samp></dd>
+        <dt>dragmap</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/dragmap/</samp></dd>
+        <dt>fasta</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/WholeGenomeFasta/Homo_sapiens_assembly38.fasta</samp></dd>
+        <dt>fasta_fai</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Sequence/WholeGenomeFasta/Homo_sapiens_assembly38.fasta.fai</samp></dd>
+        <dt>germline_resource</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/af-only-gnomad.hg38.vcf.gz</samp></dd>
+        <dt>germline_resource_tbi</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/af-only-gnomad.hg38.vcf.gz.tbi</samp></dd>
+        <dt>known_indels</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/{Mills_and_1000G_gold_standard.indels.hg38,beta/Homo_sapiens_assembly38.known_indels}.vcf.gz</samp></dd>
+        <dt>known_indels_tbi</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/{Mills_and_1000G_gold_standard.indels.hg38,beta/Homo_sapiens_assembly38.known_indels}.vcf.gz.tbi</samp></dd>
+        <dt>known_indels_vqsr</dt><dd><samp>--resource:gatk,known=false,training=true,truth=true,prior=10.0 Homo_sapiens_assembly38.known_indels.vcf.gz --resource:mills,known=false,training=true,truth=true,prior=10.0 Mills_and_1000G_gold_standard.indels.hg38.vcf.gz</samp></dd>
+        <dt>known_snps</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/1000G_omni2.5.hg38.vcf.gz</samp></dd>
+        <dt>known_snps_tbi</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/GATKBundle/1000G_omni2.5.hg38.vcf.gz.tbi</samp></dd>
+        <dt>known_snps_vqsr</dt><dd><samp>--resource:1000G,known=false,training=true,truth=true,prior=10.0 1000G_omni2.5.hg38.vcf.gz</samp></dd>
+        <dt>mappability</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/Control-FREEC/out100m2_hg38.gem</samp></dd>
+        <dt>ngscheckmate_bed</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/NGSCheckMate/SNP_GRCh38_hg38_wChr.bed</samp></dd>
+        <dt>sentieon_dnascope_model</dt><dd><samp>s3://ngi-igenomes/igenomes//Homo_sapiens/GATK/GRCh38/Annotation/Sentieon/SentieonDNAscopeModel1.1.model</samp></dd>
+        <dt>snpeff_db</dt><dd><samp>GRCh38.105</samp></dd>
+        <dt>vep_cache_version</dt><dd><samp>113</samp></dd>
+        <dt>vep_genome</dt><dd><samp>GRCh38</samp></dd>
+        <dt>vep_species</dt><dd><samp>homo_sapiens</samp></dd>
+    </dl>
+    <p style="font-size:110%"><b>Core Nextflow options</b></p>
+    <dl class="dl-horizontal">
+        <dt>configFiles</dt><dd><samp>/Users/feargusogorman/.nextflow/assets/nf-core/sarek/nextflow.config</samp></dd>
+        <dt>containerEngine</dt><dd><samp>docker</samp></dd>
+        <dt>launchDir</dt><dd><samp>/Users/feargusogorman/workspace/PATH40060/bioinf</samp></dd>
+        <dt>profile</dt><dd><samp>docker</samp></dd>
+        <dt>projectDir</dt><dd><samp>/Users/feargusogorman/.nextflow/assets/nf-core/sarek</samp></dd>
+        <dt>revision</dt><dd><samp>master</samp></dd>
+        <dt>runName</dt><dd><samp>infallible_morse</samp></dd>
+        <dt>userName</dt><dd><samp>feargusogorman</samp></dd>
+        <dt>workDir</dt><dd><samp>/Users/feargusogorman/workspace/PATH40060/bioinf/work</samp></dd>
+    </dl>

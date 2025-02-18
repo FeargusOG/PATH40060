@@ -1,2 +1,2 @@
-sample,fastq_1
-sample1,data/combined.fq
+patient,sample,lane,fastq_1
+ID1,S1,foo,combined.fq.gz
