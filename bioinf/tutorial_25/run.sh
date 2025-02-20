@@ -1,0 +1,1 @@
+nextflow run tutorial_25.nf --runID tut25 --gdPath https://drive.google.com/drive/folders/1WSL3gUyaFGSAdqEo-stEJohzHM7CEffH --email feargus.ogorman@ucdconnect.ie --outDir ./out

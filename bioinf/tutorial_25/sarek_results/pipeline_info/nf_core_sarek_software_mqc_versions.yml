@@ -1,0 +1,3 @@
+Workflow:
+    nf-core/sarek: v3.5.1-g5fe5cdf
+    Nextflow: 24.10.4

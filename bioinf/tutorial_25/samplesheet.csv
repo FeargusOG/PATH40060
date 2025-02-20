@@ -1,0 +1,2 @@
+patient,sample,lane,fastq_1
+ID1,S1,foo,data/fastq/unsplit/tut25.fastq.gz
