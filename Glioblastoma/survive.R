@@ -1,3 +1,13 @@
+library(dplyr)
+library(survival)
+
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("qvalue")
+
+library(qvalue)
+
 prepare_patient_survivability <- function(patient_data) {
   ## Set the PATIENT_ID column as the rownames
   Y_patient <- data.frame(
@@ -20,13 +30,11 @@ prepare_patient_survivability <- function(patient_data) {
   return(Y_patient)
 }
 
+# Load the clinical data
 patient_data <- read.delim("data/gbm_tcga_pub2013/data_clinical_patient.txt", skip = 4)
 survive_data <- prepare_patient_survivability(patient_data)
 
-library(dplyr)
-library(survival)
-
-# Load the RNA data
+# Load the mRNA data
 rna_data <- read.delim("data/gbm_tcga_pub2013/data_mrna_seq_v2_rsem.txt")
 
 # Remove duplicates: keep the row with highest total expression for each Entrez ID
@@ -45,12 +53,7 @@ colnames(rna_t) <- rna_data_filtered$Entrez_Gene_Id
 # Clean sample IDs to match survival data
 cleaned_rownames <- gsub("\\.\\d+$", "", rownames(rna_t))
 cleaned_rownames <- gsub("\\.", "-", cleaned_rownames)
-
-# Remove duplicates that result from this renaming
-deduped_indices <- !duplicated(cleaned_rownames)
-rna_t <- rna_t[deduped_indices, ]
-rownames(rna_t) <- cleaned_rownames[deduped_indices]
-
+rownames(rna_t) <- cleaned_rownames
 
 # Ensure samples match
 common_samples <- intersect(rownames(survive_data), rownames(rna_t))
@@ -79,7 +82,6 @@ rna_t_filtered <- rna_t[, keep_genes]
 # z-score scale
 rna_scaled <- as.data.frame(scale(rna_t_filtered))
 
-
 # Run Cox model for each gene
 results <- lapply(colnames(rna_scaled), function(gene) {
   df <- cbind(surv, gene_expr = rna_scaled[[gene]])
@@ -92,31 +94,28 @@ results <- lapply(colnames(rna_scaled), function(gene) {
   )
 })
 
-# Convert to data frame and tidy up
+# Convert to data frame, get q-values and tidy up
 cox_results <- do.call(rbind, results)
 cox_results <- as.data.frame(cox_results, stringsAsFactors = FALSE)
+cox_results$gene <- as.numeric(cox_results$gene)
 cox_results$HR <- as.numeric(cox_results$HR)
 cox_results$pvalue <- as.numeric(cox_results$pvalue)
-library(qvalue)
 qobj <- qvalue(cox_results$pvalue)
 cox_results$qvalue <- qobj$qvalues
 rownames(cox_results) <- NULL
 
-# Replace 'gene' with numeric version
-cox_results$gene <- as.numeric(cox_results$gene)
-
-# Join Hugo symbols
+# Create a dataframe to map Entrez ID to Hugo symbols
 entrez_to_hugo <- rna_data[, c("Entrez_Gene_Id", "Hugo_Symbol")]
 entrez_to_hugo <- entrez_to_hugo[!duplicated(entrez_to_hugo$Entrez_Gene_Id), ]
 
-# Merge
+# Join the Cox results and the gene mapping dataframe
 cox_results <- merge(cox_results, entrez_to_hugo, by.x = "gene", by.y = "Entrez_Gene_Id", all.x = TRUE)
 
-# Rename and reorder if you want
+# Rename
 cox_results <- cox_results[, c("Hugo_Symbol", "gene", "HR", "pvalue", "qvalue")]
 names(cox_results)[2] <- "Entrez_Gene_Id"
 
-cox_results_ordered <- cox_results[order(cox_results$HR, decreasing = TRUE), ]
+cox_results_ordered <- cox_results[order(cox_results$qvalue, decreasing = FALSE), ]
 
 # filtered_cox_results <- cox_results[cox_results$qvalue < 0.2, ]
 # cox_results_ordered <- filtered_cox_results[order(filtered_cox_results$HR, decreasing = TRUE), ]
